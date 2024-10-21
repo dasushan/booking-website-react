@@ -30,19 +30,7 @@ function App() {
       </BrowserRouter>
       
 
-      <Card className="w-60 h-56 m-1 grid place-items-center">
-        <CardHeader>
-          <CardTitle>Loki</CardTitle>
-          <CardDescription>Serene Beautiy</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p>Card Content</p>
-          <p>fjfjfj</p>
-        </CardContent>
-        <CardFooter>
-          <p>Card Footer</p>
-        </CardFooter>
-      </Card>
+      
     </>
   );
 }
