@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
 import './App.css';
 
 import {
@@ -14,6 +12,7 @@ import {
 import Dashboard from './Admin/Dashboard';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import NewProperty from './Admin/NewProperty';
+import SimpleSlider from './Admin/Carousel';
 function App() {
   const [count, setCount] = useState(0);
 
@@ -21,7 +20,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          
+          <Route path='/slider' element={<SimpleSlider />}/>
           <Route path='/admin' element={<Dashboard />}>
             
             <Route path='newlisting' element={<NewProperty />}/>

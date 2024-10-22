@@ -12,6 +12,7 @@ import { useRef } from 'react';
 import { storage } from '../firebase';
 import { ref, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
 import { v4 } from 'uuid';
+import SimpleSlider from './Carousel';
 
 const NewProperty = () => {
   const [preview, setPreview] = useState(null)
@@ -270,7 +271,7 @@ const NewProperty = () => {
 
         <div> 
           {!!preview && (
-            <Card className="w-60 h-56 m-1 grid place-items-center">
+            <Card className="w-[20rem] h-auto m-1 grid place-items-center">
               <CardHeader>
                 <CardTitle>
                     <div>
@@ -286,15 +287,15 @@ const NewProperty = () => {
                     </div>
                 </CardDescription>
               </CardHeader>
-              <CardContent>
-                <p>Card Content</p>
-                <p>fjfjfj</p>
+              <CardContent className='flex max-w-56 overflow-hidden h-[12rem]'>
+                <SimpleSlider images={preview.document.images}/> 
               </CardContent>
               <CardFooter>
                 <p>Card Footer</p>
               </CardFooter>
             </Card>
           )}
+          
         </div>
       </div>
     </div>
