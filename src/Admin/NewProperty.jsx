@@ -13,6 +13,7 @@ import { storage } from '../firebase';
 import { ref, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
 import { v4 } from 'uuid';
 import SimpleSlider from './Carousel';
+import { useNavigate } from 'react-router-dom';
 
 const NewProperty = () => {
   const [preview, setPreview] = useState(null)
@@ -28,6 +29,8 @@ const NewProperty = () => {
   const [image, setImage] = useState(null);
   const [url, setUrl] = useState([]);
   const [imageList, setImageList] = useState([]);
+
+  const navigate = useNavigate();
 
   const handleImageChange = (event) => {
     event.preventDefault();
@@ -141,7 +144,7 @@ const NewProperty = () => {
 
   return (
     <div className="bg-slate-50 rounded-lg p-2 mx-2 flex-grow h-screen overflow-y-auto">
-      <div>
+      <div onClick={() => {navigate('/admin')}}>
         <ArrowLeft className="w-5 h-5 hover:bg-slate-300 rounded-full cursor-pointer mx-1" />
       </div>
 
