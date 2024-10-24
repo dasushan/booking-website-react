@@ -5,12 +5,11 @@ import SimpleSlider from './Carousel';
 
 const Dashboard = () => {
   return (
-    <div className="h-screen w-screen overflow-y-auto">
+    <div className="h-screen w-screen overflow-y-auto no-scrollbar">
       <Header />
 
       <div className="flex ">
         <Sidebar />
-        
         <Outlet />
       </div>
     </div>

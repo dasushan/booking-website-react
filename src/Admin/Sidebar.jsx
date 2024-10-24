@@ -8,7 +8,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`h-screen flex flex-col  bg-gray-900 text-slate-100  ${
+      className={`h-screen flex flex-col  bg-slate-700 text-slate-100  ${
         isCollapsed ? 'w-[5%]' : 'w-[15%]'
       } rounded-lg overflow-y-auto`}
     >
@@ -26,19 +26,19 @@ const Sidebar = () => {
         </button>
       </div>
       <div className={`p-2`}>
-        <div className="flex items-center gap-3 py-1  my-2 mx-4 hover:bg-gray-800 rounded-r-full">
+        <div className="flex items-center gap-3 py-1  my-2 mx-4 hover:bg-gray-800 rounded-r-full cursor-pointer">
           <House className="h-5 w-5 text-amber-500" />
           {!isCollapsed && <span>Home</span>}
         </div>
       </div>
       <div className={`p-2`}>
-        <div className="flex items-center gap-3 py-1  my-2 mx-4 hover:bg-gray-800 rounded-r-full">
+        <div className="flex items-center gap-3 py-1  my-2 mx-4 hover:bg-gray-800 rounded-r-full cursor-pointer">
           <UsersRound className="h-5 w-5 text-amber-500" />
           {!isCollapsed && <span>Users</span>}
         </div>
       </div>
       <div className={`p-2`}>
-        <div className="flex items-center gap-3 py-1  my-2 mx-4 hover:bg-gray-800 rounded-r-full">
+        <div className="flex items-center gap-3 py-1  my-2 mx-4 hover:bg-gray-800 rounded-r-full cursor-pointer">
           <ClipboardList className="h-5 w-5 text-amber-500" />
           {!isCollapsed && <span>Bookings</span>}
         </div>
@@ -49,7 +49,7 @@ const Sidebar = () => {
           navigate('/admin/newlisting');
         }}
       >
-        <div className="flex items-center gap-3 py-1  my-2 mx-4 hover:bg-gray-800 rounded-r-full">
+        <div className="flex items-center gap-3 py-1  my-2 mx-4 hover:bg-gray-800 rounded-r-full cursor-pointer">
           <Plus className="h-5 w-5 text-amber-500" />
           {!isCollapsed && <span>Add Location</span>}
         </div>
