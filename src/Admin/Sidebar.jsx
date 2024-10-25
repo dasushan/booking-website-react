@@ -25,7 +25,7 @@ const Sidebar = () => {
           <Menu className="h-5 w-5" />
         </button>
       </div>
-      <div className={`p-2`}>
+      <div className={`p-2`} onClick={() => { navigate('/admin')}}>
         <div className="flex items-center gap-3 py-1  my-2 mx-4 hover:bg-gray-800 rounded-r-full cursor-pointer">
           <House className="h-5 w-5 text-amber-500" />
           {!isCollapsed && <span>Home</span>}

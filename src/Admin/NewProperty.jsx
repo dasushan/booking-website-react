@@ -149,7 +149,7 @@ const NewProperty = () => {
       </div>
 
       <div className="text-sm text-slate-800 p-2 mx-3 ">
-        <p className="text-xl font-semibold">Add New Location</p>
+        <p className="text-xl font-semibold">Add New Listing</p>
       </div>
 
       <div className="flex justify-around mt-2">

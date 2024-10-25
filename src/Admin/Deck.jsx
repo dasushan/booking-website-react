@@ -10,9 +10,12 @@ import {
 } from '../components/ui/card';
 import SimpleSlider from './Carousel';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setSelectedProperty } from '../store/propertySlice';
 const Deck = () => {
   const [property, setProperty] = useState([]);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   useEffect(() => {
     fetch(
       `https://travel-website-bc25b-default-rtdb.asia-southeast1.firebasedatabase.app/listings.json`,
@@ -55,7 +58,7 @@ const Deck = () => {
       <div className="  h-[25rem]  overflow-x-scroll no-scrollbar grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 py-3 gap-3 mb-3">
         {property.map((item) => {
           return (
-            <Card className="w-[20rem] h-auto m-1 grid place-items-center">
+            <Card className="w-[20rem] h-auto m-1 grid place-items-center" key={item.id}>
               <CardHeader>
                 <CardTitle>
                   <div>
@@ -86,6 +89,7 @@ const Deck = () => {
                     className="bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-700 hover:to-pink-700 px-4 py-1 text-white rounded-xl font-bold font-mono"
                     onClick={() => {
                       console.log(item.id);
+                      dispatch(setSelectedProperty(item))
                       navigate(`/admin/listing/${item.id}`);
                     }}
                   >

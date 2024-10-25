@@ -21,9 +21,9 @@ export default function SimpleSlider({images}) {
     
     <div className=''>
       <Slider {...setting} className="h-[10rem] w-[15rem]">
-        {images.map((image) => {
+        {images.map((image, index) => {
             return(
-                <img src={image} className='h-[10rem]'/>
+                <img src={image} className='h-[10rem]' key={index}/>
             )
         })}
       </Slider>
