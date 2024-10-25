@@ -15,6 +15,8 @@ import NewProperty from './Admin/NewProperty';
 import SimpleSlider from './Admin/Carousel';
 import Deck from './Admin/Deck';
 import Property from './Admin/Property';
+import Headband from './User/Headband';
+import LandingPage from './User/pages/LandingPage';
 function App() {
   const [count, setCount] = useState(0);
 
@@ -22,7 +24,9 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path='/slider' element={<SimpleSlider />}/>
+          <Route path='/' element={<LandingPage />}>
+
+          </Route>
           <Route path='/admin' element={<Dashboard />}>
             <Route path='/admin' element={<Deck />}/>
             <Route path='newlisting' element={<NewProperty />}/>
