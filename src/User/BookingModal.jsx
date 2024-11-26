@@ -6,23 +6,84 @@ import { useSelector } from 'react-redux';
 
 const BookingModal = () => {
   const dispatch = useDispatch();
-  const bookedProperty = useSelector((state) => state.user.bookedProperty)
+  const bookedProperty = useSelector((state) => state.user.bookedProperty);
+  const email = useSelector((state) => state.user.emailId);
   console.log(bookedProperty);
   const enteredAddressInputRef = useRef(null);
   const enteredCheckInInputRef = useRef(null);
   const enteredCheckOutInputRef = useRef(null);
   const enteredNoOfGuestsInputRef = useRef(null);
 
-  function submitHandler() {
+  function submitHandler(event) {
+    event.preventDefault();
     const booking = {
-        id: bookedProperty.id,
-        address: enteredAddressInputRef.current.value,
-        checkin: enteredCheckInInputRef.current.value,
-        checkout: enteredCheckOutInputRef.current.value,
-        guestsno : enteredNoOfGuestsInputRef.current.value
-    }
+      id: bookedProperty.id,
+      address: enteredAddressInputRef.current.value,
+      checkin: enteredCheckInInputRef.current.value,
+      checkout: enteredCheckOutInputRef.current.value,
+      guestsno: enteredNoOfGuestsInputRef.current.value,
+      email,
+    };
     console.log(booking);
-    dispatch(setShowBookingModal(false))
+    const username = email.replace(/[@ .]/g, '');
+    console.log(username);
+    fetch(
+      `https://travel-website-bc25b-default-rtdb.asia-southeast1.firebasedatabase.app/${username}.json`,
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          id: bookedProperty.id,
+          booked: bookedProperty.booked,
+          user: {
+            address: enteredAddressInputRef.current.value,
+            checkin: enteredCheckInInputRef.current.value,
+            checkout: enteredCheckOutInputRef.current.value,
+            guestsno: enteredNoOfGuestsInputRef.current.value,
+            email,
+          },
+          property: bookedProperty.document,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    ).then(async (res) => {
+      try {
+        const data = await res.json();
+        console.log(data);
+        fetch(
+          `https://travel-website-bc25b-default-rtdb.asia-southeast1.firebasedatabase.app/bookings.json`,
+          {
+            method: 'POST',
+            body: JSON.stringify({
+              id: bookedProperty.id,
+              user: {
+                address: enteredAddressInputRef.current.value,
+                checkin: enteredCheckInInputRef.current.value,
+                checkout: enteredCheckOutInputRef.current.value,
+                guestsno: enteredNoOfGuestsInputRef.current.value,
+                email,
+              },
+            }),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        ).then(async (res) => {
+          try {
+            const data = await res.json();
+            console.log(data);
+            dispatch(setShowBookingModal(false));
+          } catch (err) {
+            console.log(err);
+          }
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    });
+
+    
   }
   return (
     <div className="h-screen w-full fixed left-0 top-0 flex justify-center items-center z-20 bg-opacity-55">
@@ -94,10 +155,14 @@ const BookingModal = () => {
                 ref={enteredNoOfGuestsInputRef}
               />
             </div>
-            <div className='flex justify-end mt-3'>
-                <button type="submit" onClick={submitHandler} className='px-5 py-3 m-3 bg-green-500 text-white text-center font-semibold hover:scale-125 cursor-pointer transition-all ease-in-out duration-300 hover:font-extrabold'>
-                    Confirm Booking
-                </button>
+            <div className="flex justify-end mt-3">
+              <button
+                type="submit"
+                onClick={submitHandler}
+                className="px-5 py-3 m-3 bg-green-500 text-white text-center font-semibold hover:scale-105 cursor-pointer transition-all ease-in-out duration-300 hover:font-extrabold"
+              >
+                Confirm Booking
+              </button>
             </div>
           </div>
         </div>
