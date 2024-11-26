@@ -6,7 +6,7 @@ const LandingPage = () => {
     <>
       <div>
         <Headband />
-        <Outlet />
+         <Outlet />
         <Footer />
       </div>
     </>

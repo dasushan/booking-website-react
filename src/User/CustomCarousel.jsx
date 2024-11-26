@@ -2,7 +2,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
 export default function CustomCarousel({ children: slides }) {
   const [curr, setCurr] = useState(0);
-    console.log(slides)
+    
   const prev = () => {
     setCurr((curr) => (curr == 0 ? slides.length - 1 : curr - 1));   
 
