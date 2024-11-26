@@ -25,10 +25,10 @@ const UserDeck = () => {
       }
     ).then(async (response) => {
       const result = await response.json();
-      let data = [];
-      for (const [key, value] of Object.entries(result)) {
-        data.push(value);
-      }
+      let data = Object.values(result)
+      // for (const [key, value] of Object.entries(result)) {
+      //   data.push(value);
+      // }
       setHotels(data);
     });
   }, []);
@@ -36,7 +36,6 @@ const UserDeck = () => {
   const clickHandler = (category) => {
     return () => {
       dispatch(setCategory(category));
-      console.log(category);
       navigate(`/lodging/${category}`);
     };
   };
@@ -48,19 +47,19 @@ const UserDeck = () => {
         </div>
         <div className="flex justify-around items-center gap-3">
           <div
-            className="px-2 m-2 bg-gray-100 hover:bg-neutral-400 hover:text-white hover:scale-125 cursor-pointer rounded-lg font-semibold"
+            className="px-2 m-2 bg-gray-100 hover:bg-neutral-400 hover:text-white hover:scale-125 cursor-pointer rounded-lg font-semibold transition-all ease-in-out duration-300"
             onClick={clickHandler('villa')}
           >
             Villa
           </div>
           <div
-            className="px-2 m-2 bg-gray-100 hover:bg-neutral-400 hover:text-white hover:scale-125 cursor-pointer rounded-lg font-semibold"
+            className="px-2 m-2 bg-gray-100 hover:bg-neutral-400 hover:text-white hover:scale-125 cursor-pointer rounded-lg font-semibold transition-all ease-in-out duration-300"
             onClick={clickHandler('apartment')}
           >
             Apartment
           </div>
           <div
-            className="px-2 m-2 bg-gray-100 hover:bg-neutral-400 hover:text-white hover:scale-125  cursor-pointer rounded-lg font-semibold"
+            className="px-2 m-2 bg-gray-100 hover:bg-neutral-400 hover:text-white hover:scale-125  cursor-pointer rounded-lg font-semibold transition-all ease-in-out duration-300"
             onClick={clickHandler('cottage')}
           >
             Cottage
