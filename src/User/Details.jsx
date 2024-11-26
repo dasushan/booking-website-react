@@ -1,22 +1,30 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { setProperty, setShowBookingModal, setBookedProperty } from '../store/userSlice';
+import {
+  setProperty,
+  setShowBookingModal,
+  setBookedProperty,
+} from '../store/userSlice';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import SimpleSlider from '../Admin/Carousel';
 import BookingModal from './BookingModal';
 
 const Details = () => {
+  const navigate = useNavigate();
+
   const category = useSelector((state) => state.user.selectedCategory);
-  
+
   const property = useSelector((state) => state.user.property);
   const showBookingModal = useSelector((state) => state.user.showBookingModal);
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const dispatch = useDispatch();
 
   console.log(category);
   const [minPrice, setMinPrice] = useState(300);
   const [maxPrice, setMaxPrice] = useState(10000);
   const [filteredProperty, setFilteredProperty] = useState([]);
-  
+
   useEffect(() => {
     fetch(
       `https://travel-website-bc25b-default-rtdb.asia-southeast1.firebasedatabase.app/listings.json`,
@@ -38,7 +46,7 @@ const Details = () => {
   useEffect(() => {
     const filter = property.filter((item) => {
       const price = Number(item.document.price);
-      
+
       return price >= minPrice && price <= maxPrice;
     });
     setFilteredProperty(filter);
@@ -47,9 +55,13 @@ const Details = () => {
   }, [minPrice, maxPrice, property]);
 
   const clickHandler = (item) => {
-    dispatch(setShowBookingModal(true))
-    dispatch(setBookedProperty(item))
-  }
+    if (!isLoggedIn) {
+      navigate('/login', { replace: true });
+    } else {
+      dispatch(setShowBookingModal(true));
+      dispatch(setBookedProperty(item));
+    }
+  };
 
   return (
     <>
@@ -91,7 +103,10 @@ const Details = () => {
             <div className="h-screen overflow-y-scroll flex-grow no-scrollbar">
               {filteredProperty.map((item) => {
                 return (
-                  <div className="flex mb-3 gap-3 p-1 bg-slate-100 rounded-md" key={item.id}>
+                  <div
+                    className="flex mb-3 gap-3 p-1 bg-slate-100 rounded-md"
+                    key={item.id}
+                  >
                     <div className="max-w-[15rem] h-[15rem]">
                       <SimpleSlider images={item.document.images} />
                     </div>
@@ -112,7 +127,14 @@ const Details = () => {
                           including all taxes
                         </div>
                         <div className="mt-[5rem] bg-green-500 w-full p-3 text-center rounded-md hover:bg-green-700 hover:shadow-lg transition-shadow">
-                          <button onClick={() => {clickHandler(item)}} className="text-white ">Book Now</button>
+                          <button
+                            onClick={() => {
+                              clickHandler(item);
+                            }}
+                            className="text-white "
+                          >
+                            Book Now
+                          </button>
                         </div>
                       </div>
                     </div>

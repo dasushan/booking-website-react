@@ -7,9 +7,24 @@ import {
   CircleUser,
 } from 'lucide-react';
 import './style.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { login, logout } from '../store/userSlice';
+import { useNavigate } from 'react-router-dom';
 const Headband = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn)
+  function clickHandler(){
+    if(isLoggedIn){
+      dispatch(logout())
+      navigate('/login', {replace: true})
+    }
+    if(!isLoggedIn){
+      navigate('/login', {replace: true})
+    }
+  }
   return (
-    <div className="bg-white shadow-md">
+    <div className="bg-white shadow-md mb-2">
       <div className="flex justify-between items-center h-[4rem] w-[90%] bg-red-300 mx-auto">
         <div className="flex items-center justify-center gap-1">
           <div className="p-2 bg-yellow-300 rounded-sm">
@@ -29,9 +44,10 @@ const Headband = () => {
           <div className="hover:cursor-pointer p-2 mr-2 hover:text-white">
             <BaggageClaim />
           </div>
-          <div className="flex hover:cursor-pointer hover:text-white gap-1 justify-center items-center p-2 mr-2">
+          <div className="flex hover:cursor-pointer hover:text-white gap-1 justify-center items-center p-2 mr-2" onClick={clickHandler}>
             <CircleUser />
-            Sign in
+            {isLoggedIn? 'Log out': 'Sign in'}
+            
           </div>
         </div>
       </div>
